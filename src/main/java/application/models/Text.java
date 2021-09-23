@@ -17,4 +17,10 @@ public class Text {
     private String textContent;
     private long textAnswearId;
 
+
+    public Text(long id, String textContent, long textAnswearId) {
+        this.id = id;
+        this.textContent = textContent;
+        this.textAnswearId = textAnswearId;
+    }
 }
