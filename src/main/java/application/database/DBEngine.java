@@ -29,7 +29,7 @@ public class DBEngine {
 
         Properties properties = new Properties();
         properties.put("user", "root");
-        properties.put("password", "admin");
+        properties.put("password", "password");
 
 
         try {
