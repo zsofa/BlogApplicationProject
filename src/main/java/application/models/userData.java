@@ -20,4 +20,12 @@ public class userData {
     private State userState;
     byte[] profilePicture;
 
+
+    public userData(long id, String userName, String password, String emailAdress, State userState) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.emailAdress = emailAdress;
+        this.userState = userState;
+    }
 }
