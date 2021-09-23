@@ -1,6 +1,6 @@
 package application.models;
 
-public class userData {
+public class UserData {
 
     /**
      CREATE TABLE IF NOT EXISTS user_data (
@@ -21,7 +21,7 @@ public class userData {
     byte[] profilePicture;
 
 
-    public userData(long id, String userName, String password, String emailAdress, State userState) {
+    public UserData(long id, String userName, String password, String emailAdress, State userState) {
         this.id = id;
         this.userName = userName;
         this.password = password;
