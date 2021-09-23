@@ -21,7 +21,8 @@ public class DBEngine {
 
     //method for making a connection to database
     private Connection connect() {
-        String url = "jdbc:mysql://127.0.0.1:3306/blog_application_DB" +
+        String url = "jdbc:mysql://" + System.getenv("DB_HOSTNAME") + ":" +
+                System.getenv("DB_PORT")+ "/" + System.getenv("DB_NAME") +
                 "?useUnicode=yes&characterEncoding=UTF-8";
 
         // as hostname I can insert - localhost - too if I do the connection in my own computer
