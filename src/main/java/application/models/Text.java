@@ -1,22 +1,24 @@
 package application.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 public class Text {
 
-
-    /**
-     CREATE TABLE IF NOT EXISTS text (
-     id INT UNSIGNED AUTO_INCREMENT,
-     text_content LONGTEXT,
-     text_answear_id INT UNSIGNED,
-     text_type ENUM ('blog post','comment'),
-     PRIMARY KEY (id),
-     FOREIGN KEY (text_answear_id) REFERENCES text(id)
-     );*/
-
+    @Getter @Setter
     private long id;
+    @Getter @Setter
     private String textContent;
+    @Getter @Setter
     private long textAnswearId;
 
+    @Getter @Setter
+    private List<Text> commentTexts;
+
+    public Text() {
+    }
 
     public Text(long id, String textContent, long textAnswearId) {
         this.id = id;

@@ -1,25 +1,30 @@
 package application.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 public class UserData {
 
-    /**
-     CREATE TABLE IF NOT EXISTS user_data (
-     id INT UNSIGNED AUTO_INCREMENT,
-     user_name VARCHAR(60) NOT NULL UNIQUE,
-     password VARCHAR(50) NOT NULL,
-     email VARCHAR(100) NOT NULL UNIQUE,
-     user_state ENUM ('user','admin','moderator'),
-     profile_picture LONGBLOB,
-     PRIMARY KEY (id)
-     );*/
-
+    @Getter @Setter
     private long id;
+    @Getter @Setter
     private String userName;
+    @Getter @Setter
     private String password;
+    @Getter @Setter
     private String emailAdress;
+    @Getter @Setter
     private State userState;
+    @Getter @Setter
     byte[] profilePicture;
 
+    @Getter @Setter
+    private List<Text> textsFromUsers; // kapcsolótábla
+
+    public UserData() {
+    }
 
     public UserData(long id, String userName, String password, String emailAdress, State userState) {
         this.id = id;
@@ -28,4 +33,7 @@ public class UserData {
         this.emailAdress = emailAdress;
         this.userState = userState;
     }
+
+
+
 }

@@ -1,21 +1,26 @@
 package application.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 public class Template {
 
-    /**
-     CREATE TABLE IF NOT EXISTS template (
-     template_name VARCHAR(50) NOT NULL,
-     category VARCHAR(50) UNIQUE DEFAULT 'clean',
-     main_colour VARCHAR(50) DEFAULT 'black',
-     background_colour VARCHAR(50) DEFAULT 'white',
-     PRIMARY KEY (template_name)
-     );*/
-
+    @Getter @Setter
     private String templateName;
+    @Getter @Setter
     private String category;
+    @Getter @Setter
     private String mainColour;
+    @Getter @Setter
     private String backgroundColour;
 
+    @Getter @Setter
+    private List<Text> textsToTemplates;
+
+    public Template() {
+    }
 
     public Template(String templateName, String category, String mainColour, String backgroundColour) {
         this.templateName = templateName;
