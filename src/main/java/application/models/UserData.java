@@ -14,23 +14,25 @@ public class UserData {
     @Getter @Setter
     private String password;
     @Getter @Setter
-    private String emailAdress;
+    private String email;
     @Getter @Setter
-    private State userState;
+    private UserState userState;
     @Getter @Setter
     byte[] profilePicture;
 
     @Getter @Setter
-    private List<Text> textsFromUsers; // kapcsolótábla
+    private List<BlogText> userBlogposts; // kapcsolótábla
+    @Getter @Setter
+    private List<CommentText> userComments;
 
     public UserData() {
     }
 
-    public UserData(long id, String userName, String password, String emailAdress, State userState) {
+    public UserData(long id, String userName, String password, String emailAdress, UserState userState) {
         this.id = id;
         this.userName = userName;
         this.password = password;
-        this.emailAdress = emailAdress;
+        this.email = emailAdress;
         this.userState = userState;
     }
 

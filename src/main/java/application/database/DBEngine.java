@@ -1,8 +1,10 @@
 package application.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import application.models.UserData;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class DBEngine {
@@ -12,7 +14,6 @@ public class DBEngine {
     public DBEngine() {
         connection = connect();
     }
-
 
     // check if connection works
     public boolean isConnected() {
@@ -38,5 +39,30 @@ public class DBEngine {
         } catch (SQLException e) {
             return null;
         }
+    }
+
+    /*
+    *
+    * */
+
+    public List<UserData> lisAllUsers() {
+        String query = "SELECT * FROM user_data;";
+
+        List<UserData> userData = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                    resultSet.getLong("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error");
+        }
+
+        return userData;
     }
 }

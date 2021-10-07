@@ -17,7 +17,7 @@ public class Template {
     private String backgroundColour;
 
     @Getter @Setter
-    private List<Text> textsToTemplates;
+    private List<BlogText> blogTemplates;
 
     public Template() {
     }
