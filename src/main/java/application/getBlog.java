@@ -1,6 +1,6 @@
 package application;
 
-import application.database.DBEngine;
+import application.services.DBEngine;
 
 public class getBlog {
     public static void main(String[] args) {
