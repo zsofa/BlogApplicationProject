@@ -2,7 +2,6 @@ package application.modul;
 
 import application.models.UserData;
 import application.models.UserState;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +10,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetAllDataOfUserTest {
+class GetUsersByStateTest {
 
     @Test
-    public void getDataTest() {
-
-        String input = "Babushka";
+    public void usersByStateTest() {
+        String input = "user";
         List<UserData> expected = Arrays.asList(
                 new UserData(
                         5,
@@ -27,14 +25,16 @@ class GetAllDataOfUserTest {
                 )
         );
 
-        Assertions.assertTrue(compareLists(expected, GetAllDataOfUser.run(input)));
+        Assertions.assertTrue(compareLists(expected, GetUsersByState.run(input)));
+
     }
+
 
     private <T> boolean compareLists(List<T> expected, List<T> actual) {
         if (!(expected.size() == actual.size())) {
-                return false;
+            return false;
         }
-        for (int i = 0; i < expected.size(); i++) {
+        for (int i = 0; i < actual.size(); i++) {
             if (!(expected.get(i).equals(actual.get(i)))) {
                 return false;
             }

@@ -47,6 +47,8 @@ public class GetAllDataOfUser {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error with command!");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         return result;
     }

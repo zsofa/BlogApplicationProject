@@ -29,7 +29,11 @@ public class DBEngine {
             return DriverManager.getConnection(url, properties);
         } catch (SQLException e) {
             return null;
+        } catch (NullPointerException e) {
+           e.printStackTrace();
         }
+
+        return null;
     }
 
 }
