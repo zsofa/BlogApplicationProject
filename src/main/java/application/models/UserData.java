@@ -36,6 +36,12 @@ public class UserData {
         this.userState = userState;
     }
 
+    @Override
+    public String toString() {
+        return id + " - " + userName + ", " +
+                password + ", " + email + ", "+ userState;
+    }
+
 
 
 }
