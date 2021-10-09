@@ -1,0 +1,125 @@
+Blog application scheme:
+
+	1. Making a database in MySQL Workbench (save srcibd)
+	
+			1.1. Tables: 
+			
+				1. user_data														
+					 - id INT PRIMARY KEY AUTO_INCREMENT 	
+					 - user_name VARCHAR(50) NOT NULL
+					 - password VARCHAR(50) NOT NULL
+					 - email VARCHAR(100) NOT NULL
+					 - profile_picture LONGBLOB
+					 - state ENUM(admin, user, moderator)
+					
+					 
+				2. template										   
+					- template_name VARCHAR(50) NOT NULL DEFAULT 'plane'
+					- category VARCHAR(50) NOT NULL DEFAULT 'basic'
+					- main_colour VARCHAR(20) NOT NULL DEFAULT 'black'
+					- background_colour VARCHAR(20) NOT NULL DEFAULT 'white' 
+					
+				3. blog_text
+					- id INT INT PRIMARY KEY AUTO_INCREMENT
+					- text_content longtext
+				
+				4. comment_text
+					- id INT INT PRIMARY KEY AUTO_INCREMENT
+					- text_content longtext
+		
+			
+			1.2 Switchboard
+			
+				1. user_blogpost = user_data : id + text : id
+				2. blog_template = text : id + template : template_name
+				3. blog_comment = blog: id + comment : id
+				4. user_comment = user_data : id + comment_text : id
+				
+				
+				
+				
+			1.3 Fill database with datas	
+				
+		
+	
+	2. Github 
+			2.1 Making a connection with IntelliJ
+			2.2 Commit and push after every significant move
+	
+	3. Java Maven project 
+	
+			3.1. Open a Maven styled Java project
+			3.2 Insert Maven dependency to pom.xml
+			
+			
+	
+	3. Java code
+	
+		
+		3.1 Methods needed:
+		
+				1. Get all information and datas from a user/moderator/admin
+				
+					MySQL code: 
+							
+							SELECT * FFROM user_data WHERE user_state = '_____';
+							
+				2. Get all information and datas of a user/admin/moderatot by name
+
+					MySQL code: 
+							
+							SELECT * FROM user_data WHERE user_name = '_____';
+						
+				3. Get a user's all blogposts
+				
+					MySQL code: 
+							
+							SELECT user_name,blog_content FROM blog_text
+							JOIN user_blogpost
+							ON blog_text.id = user_blogpost.blog_id
+							JOIN user_data
+							ON user_data.id = user_blogpost.user_id
+							WHERE user_name = '_____';
+		
+				4. Get all blogposts from a blog
+				
+						MySQL code:
+						
+				
+				
+				5. Get all comments of a blogposts
+				
+					MySQL code:
+							
+							SELECT blog_name,comment_content FROM comment_text
+							JOIN blog_comment
+							ON comment_text.id = blog_comment.comment_id
+							JOIN blog_text
+							ON blog_text.id = blog_comment.blog_id
+							WHERE blog_name = '____';
+	
+	
+		3.2. Packages and classes: 
+					
+					1. application (Java folder)
+							
+							1.1 services
+								- DBEngine: connect to MySQL database
+							
+							1.2 models
+								- BlogText
+								- CommentText
+								- Template
+								- UserData
+								Enums:
+									- UserState (user,admin,moderator)
+								
+							1.3 modul
+							
+								- DataHandler : get datas from database 
+								
+		
+							+ main : getBlog	
+	
+					
+					2. test (main folder)
