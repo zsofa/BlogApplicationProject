@@ -1,0 +1,226 @@
+DROP DATABASE IF EXISTS blog_application_DB;
+
+CREATE DATABASE blog_application_DB;
+
+USE blog_application_DB;
+
+
+CREATE TABLE IF NOT EXISTS user_data (
+id INT UNSIGNED AUTO_INCREMENT,
+user_name VARCHAR(60) NOT NULL UNIQUE,
+password VARCHAR(50) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE,
+user_state ENUM ('user','admin','moderator'),
+profile_picture LONGBLOB,
+PRIMARY KEY (id)
+);
+
+
+
+
+CREATE TABLE IF NOT EXISTS blog_text (
+id INT UNSIGNED AUTO_INCREMENT,
+blog_name VARCHAR(50),
+blog_content LONGTEXT,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS comment_text (
+id  INT UNSIGNED AUTO_INCREMENT,
+comment_content LONGTEXT,
+PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS template (
+name VARCHAR(50) NOT NULL,
+category VARCHAR(50) UNIQUE DEFAULT 'clean',
+main_colour VARCHAR(50) DEFAULT 'black',
+background_colour VARCHAR(50) DEFAULT 'white',
+PRIMARY KEY (name)
+);
+
+
+CREATE TABLE IF NOT EXISTS user_blogpost (
+id INT UNSIGNED AUTO_INCREMENT,
+user_id INT UNSIGNED,
+blog_id INT UNSIGNED,
+PRIMARY KEY(id),
+FOREIGN KEY (user_id) REFERENCES user_data(id),
+FOREIGN KEY (blog_id) REFERENCES blog_text(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS blog_template (
+id INT UNSIGNED AUTO_INCREMENT,
+blog_id INT UNSIGNED,
+template_name VARCHAR(50) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (blog_id) REFERENCES blog_text(id),
+FOREIGN KEY (template_name) REFERENCES template(name)
+);
+
+CREATE TABLE IF NOT EXISTS blog_comment (
+id INT UNSIGNED AUTO_INCREMENT,
+blog_id INT UNSIGNED,
+comment_id INT UNSIGNED,
+PRIMARY KEY (id),
+FOREIGN KEY (blog_id) REFERENCES blog_text(id),
+FOREIGN KEY (comment_id) REFERENCES comment_text(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS user_comment (
+id INT UNSIGNED AUTO_INCREMENT,
+user_id INT UNSIGNED,
+comment_id INT UNSIGNED,
+PRIMARY KEY(id),
+FOREIGN KEY (user_id) REFERENCES user_data(id),
+FOREIGN KEY (comment_id) REFERENCES comment_text(id)
+);
+
+
+
+INSERT INTO user_data (user_name, password, email, user_state) VALUES 
+('casanova', SHA1('Bumfuzzle1865'), 'casanova@gmail.com', 'user'),
+('HairyPoppins',SHA1('Fartlek345'),'hp1978@freemail.hu', 'moderator'),
+('me_for_president', SHA1('Erf77777'), 'sexyboy@gmail.com','user'),
+('crazy_cat_lady', SHA1('Hullaballoo0000'), 'catfood@citromail.hu', 'admin'),
+('Babushka', SHA1('Meldrop98765'), 'vodka1956@gmail.com', 'user'),
+('FartinLutherKing', SHA1('Obelus1234567'), 'iamfunny@gmail.com', 'moderator'),
+('iNeed2p', SHA1('WhippersnapperTTTT'), 'poop@gmail.com', 'admin'),
+('just-a-harmless-potato', SHA1('Octothorpe4567234'), 'vegetablepassion@freemail.hu', 'user');
+
+
+
+INSERT INTO blog_text (blog_name,blog_content) VALUES
+('Yehudi Menuhi','Yehudi Menuhin hegedűművész nemcsak játékáról, hanem roppant szorgalmáról is híres.
+ Naponta nyolc órán át gyakorol, s ezt sohasem mulasztja el.
+ Megkérdezték tőle, hogy miért gyakorol ennyit, hiszen a napi nyolc óra után, sokszor még rendkívül hosszú és fárasztó koncerteket ad. 
+–  Én mindig is nagyon precíz ember voltam – válaszolta a művész – ledolgozom a napi nyolc órámat a többi már csak szórakozás.'),
+
+('Mark Twain','Egy újságíró megkérdezte Mark Twain-t, igaz-e, hogy már hosszabb ideje dolgozik egy nagyobb lélegzetvételű színdarabon.
+Twain így válaszolt:
+– Igen, most egy négy felvonásos, három szünetes darabon dolgozom, s a szünetekkel már kész is vagyok!'),
+
+('OBLOMOV','OBLOMOV
+
+A kályha előtti fullasztó
+medvebőr-nehéz pihenés
+Az ötágú kézfej szétterpesztett
+homályos ujjaival
+A lélegzet szabdalta füstszalagok
+lassan növő hajunk, körmeink
+Ha leteszünk a kint fénylő cipőkről
+az előszoba-hideg kabátokról
+- ez marad
+
+Lackfi János'),
+
+
+('A gyertyák csonkig égnek','Egy ember, szegény, semmi más, csak ember és halandó, akármit csinál is... aztán megöregszik a tested;
+ nem egyszerre, nem, először szemed öregszik vagy lábaid, vagy gyomrod, szíved. Így öregszik az ember, 
+ részletekben. Aztán egyszerre öregedni kezd a lelked: mert a test hiába esendő és romlandó,
+ a lélek még vágyakozik és emlékezik, keres és örül, vágyik az örömre. S mikor elmúlik ez az örömvágy,
+ nem marad más, csak az emlékek vagy a hiúság; s ilyenkor öregszel igazán, végzetesen és véglegesen.
+ Egy napon felébredsz, s szemed dörzsölöd: már nem tudod, miért ébredtél? Amit a nap mutat,
+ pontosan ismered: a tavaszt vagy a telet, az élet díszleteit, az időjárást, az élet napirendjét.
+ Nem történhet többé semmi meglepő: még a váratlan, a szokatlan, a borzalmas sem lep meg, mert minden esélyt ismersz,
+ mindenre számítottál, semmit nem vársz többé, sem rosszat, sem jót... s ez az öregség.
+ 
+ Márai Sándor A gyertyák csonkig égnek - részlet'),
+ 
+('Short story','In her dream she is fourteen, running home from work on precarious little heels, down the paved street, 
+as molten metal plip-plops around her, dotting the cement with perfect silver discs. 
+Her mother lags six feet behind, following her footsteps, urging her to tread carefully.
+ A V2 rocket launches overhead, triggering the timer in her mind. 
+ She waits in the signature silence for the rocket to find its mark, as it careens...'),
+
+('Eladó!','A XIX. század végén a lengyel komponista és zongoraművész, Moritz Moszkowski Bécs utcáin sétálgatott a Rimszkij-Korszakov-tanítvány Alekszandr Glazunov társaságában.
+Ahogy a nagy bécsi muzsikus Franz Schubert hajdani otthonához értek, megálltak, és elolvasták a ház falára erősített márvány emléktábla szövegét.
+– Mit gondolsz, barátom – mélázott el Glazunov –, ha meghalok az én házamra is tesznek majd egy táblát?
+– Egész biztos! – vágta rá Moszkowski.
+– És vajon mit írnak majd rá? – faggatta tovább Glazunov.
+– Azt írják rá: Ez a lakás eladó!');
+
+
+
+INSERT INTO comment_text (comment_content) VALUES 
+('Fantasztikus!!'),
+('Kedvenc írásom! Remek vagy!'),
+('Ez egy kamu, nem is te írtad!'),
+('Szerintem belőled még lesz valami! Csak így tovább!'),
+('Szar'),
+('Olvassátok el az enyém is, az sokkal jobb!');
+
+
+INSERT INTO template (name, category, main_colour, background_colour ) VALUES 
+('Basic','None','Black','White'),
+('Old','For deep thoughts','Brown','Orange'),
+('Fun','For funny posts','Green','Red'),
+('Modern','For new ideas','Blue','White');
+
+
+INSERT INTO user_blogpost (user_id, blog_id) VALUES
+(1,2),
+(1,3),
+(3,4),
+(5,1),
+(5,5),
+(8,6);
+
+SELECT * FROM user_data
+	JOIN user_blogpost
+    ON user_data.id = user_blogpost.blog_id
+    JOIN blog_text
+    ON blog_text.id = user_blogpost.user_id;
+
+
+INSERT INTO blog_comment (blog_id, comment_id) VALUES
+(1,2),
+(1,1),
+(3,3),
+(3,4),
+(4,6),
+(5,5);
+
+INSERT INTO user_comment (user_id, comment_id) VALUES
+(1,2),
+(3,1),
+(5,3),
+(8,5),
+(1,4),
+(8,6);
+
+INSERT INTO blog_template (blog_id,template_name) VALUES 
+(1,'Basic'),
+(2,'Modern'),
+(3,'Old'),
+(4,'Fun'),
+(5,'Modern'),
+(6,'Basic');
+
+
+/*visszaadja adott szerepkörű felhasználók összes adatát*/
+SELECT * FROM user_data WHERE user_state = 'admin';
+
+/*visszaadja egy adott felhasználó összes adatát*/
+SELECT * FROM user_data WHERE user_name = 'Babushka';
+
+/*visszaadja egy adott felhasználó összes blogját*/
+SELECT user_name,blog_content FROM blog_text
+JOIN user_blogpost
+ON blog_text.id = user_blogpost.blog_id
+JOIN user_data
+ON user_data.id = user_blogpost.user_id
+WHERE user_name = 'casanova';
+
+/*visszaadja egy adott blog összes blogbejegyzését*/
+
+/*visszaadja egy adott blogbejegyzéshez tartozó összes kommentet*/
+SELECT blog_name,comment_content FROM comment_text
+JOIN blog_comment
+ON comment_text.id = blog_comment.comment_id
+JOIN blog_text
+ON blog_text.id = blog_comment.blog_id
+WHERE blog_name = 'OBLOMOV';
